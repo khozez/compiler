@@ -1,17 +1,16 @@
 package compilador;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 
 public class Tokenizer {
-	static String nextLine;
-	static int state;
-	static char entry;
-	
 
 	public static void main(String[] args) {
+		String nextLine;
+		int state = 0;
+		char entry;
+		MTE matrix = new MTE();
 		File code = new File ("codigo.txt");
 		try {
 			Scanner s = new Scanner(code);
@@ -20,7 +19,7 @@ public class Tokenizer {
 				for(int i=0;i<nextLine.length();i++) {
 					entry = nextLine.charAt(i);
 					System.out.println((int)entry);
-					state=transition(state,entry);
+					state = matrix.transition(state,entry);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -30,11 +29,4 @@ public class Tokenizer {
 
 
 	}
-
-
-	private static int transition(int s, char e) {
-		
-		return 0;
-	}
-
 }

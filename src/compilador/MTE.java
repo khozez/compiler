@@ -1,12 +1,10 @@
 package compilador;
 
-import java.util.ArrayList;
-
-public class Automata {
+public class MTE {
 	int[][] matrix = new int[7][127];//matrix[estado][entrada]
 	
 	
-	public void Automata() {
+	public void MTE() {
 		for (int i=0;i<=7;i++) {
 			for(int j=0;j<=127;j++) {
 				matrix[i][j]=-1;
@@ -97,14 +95,10 @@ public class Automata {
 		for(int i=58;i<=126;i++) {
 			matrix[6][i]=7;
 		}
-		
 	}
 
-		
+	public int transition(int s, char e) {
 
-	
-	
-	
-
-
+		return 0;
+	}
 }
