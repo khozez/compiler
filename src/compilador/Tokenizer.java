@@ -19,7 +19,7 @@ public class Tokenizer {
 				nextLine = s.nextLine();
 				for(int i=0;i<nextLine.length();i++) {
 					entry = nextLine.charAt(i);
-					System.out.println(entry);
+					System.out.println((int)entry);
 					state=transition(state,entry);
 				}
 			}
