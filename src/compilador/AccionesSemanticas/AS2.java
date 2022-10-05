@@ -5,6 +5,6 @@ public class AS2 implements AccionSemantica{
 
     @Override
     public int ejecutar(String lexema, char caracter) {
-        return 0;
+        return caracter;
     }
 }

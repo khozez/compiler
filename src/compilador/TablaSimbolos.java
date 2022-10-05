@@ -15,11 +15,15 @@ public class TablaSimbolos {
     private static int identificador_siguiente = 1;
 
 
-    public static void agregarSimbolo(String simbolo_nuevo) {
-        Map<String, String> atributos = new HashMap<>();
-        atributos.put(LEXEMA, simbolo_nuevo);
-        simbolos.put(identificador_siguiente, atributos);
-        ++identificador_siguiente;
+    public static boolean agregarSimbolo(String simbolo_nuevo) {
+        if (obtenerSimbolo(simbolo_nuevo) != NO_ENCONTRADO) {
+            Map<String, String> atributos = new HashMap<>();
+            atributos.put(LEXEMA, simbolo_nuevo);
+            simbolos.put(identificador_siguiente, atributos);
+            ++identificador_siguiente;
+            return true;
+        }
+        return false;
     }
 
     public static int obtenerSimbolo(String lexema) {
