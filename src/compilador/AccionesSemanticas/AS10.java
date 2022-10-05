@@ -13,7 +13,7 @@ public class AS10 implements AccionSemantica{
         try {
             lexema += (char) lector.read();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         if (TablaSimbolos.obtenerSimbolo(lexema) != TablaSimbolos.NO_ENCONTRADO) {
             TablaSimbolos.agregarSimbolo(lexema);

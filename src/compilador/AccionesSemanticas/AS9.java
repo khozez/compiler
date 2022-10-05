@@ -11,7 +11,7 @@ public class AS9 implements AccionSemantica{
         try {
             lector.read();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return -2;
     }
