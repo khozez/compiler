@@ -1,12 +1,21 @@
 package compilador.AccionesSemanticas;
 
-import java.io.Reader;
+import compilador.AnalizadorLexico;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
 
 public class AS8 implements AccionSemantica{
     //RETORNA EL TOKEN
 
     @Override
-    public int ejecutar(Reader lector, String lexema) {
-        return lexema.charAt(0);
+    public int ejecutar(BufferedInputStream lector, String lexema) {
+        try {
+            char c = (char) lector.read();
+            AnalizadorLexico.lexema += c;
+            return c;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -116,7 +116,4 @@ public class MTE {
 
 	}
 
-	public int proxEstado(int estado_actual, int caracter){
-		return 0;
-	}
 }

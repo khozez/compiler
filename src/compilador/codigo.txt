@@ -1,5 +1,0 @@
-prueba para eliminar espacios
-y
-saltos
-de
-linea

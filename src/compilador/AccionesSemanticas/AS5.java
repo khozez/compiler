@@ -2,13 +2,14 @@ package compilador.AccionesSemanticas;
 
 import compilador.AnalizadorLexico;
 import compilador.TablaSimbolos;
-import java.io.Reader;
+
+import java.io.BufferedInputStream;
 
 public class AS5 implements AccionSemantica{
     //ASOCIADA AL CONTROL DE LOS ENTEROS LARGOS SIN SIGNO
 
     @Override
-    public int ejecutar(Reader lector, String lexema) {
+    public int ejecutar(BufferedInputStream lector, String lexema) {
         long num = Long.parseLong(lexema);
         if (num > AnalizadorLexico.MAX_LONG){
             num = AnalizadorLexico.MAX_LONG;

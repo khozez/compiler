@@ -5,7 +5,7 @@ import compilador.AccionesSemanticas.*;
 public class MAS {
     public AccionSemantica[][] action_matrix = new AccionSemantica[12][26];
 
-    public void MAS(){
+    public MAS(){
         action_matrix[0][0]= new AS2();
         action_matrix[0][1]= new AS2();
         action_matrix[0][2]= new AS2();

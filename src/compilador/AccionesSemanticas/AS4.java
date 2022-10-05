@@ -2,13 +2,14 @@ package compilador.AccionesSemanticas;
 
 import compilador.AnalizadorLexico;
 import compilador.TablaSimbolos;
-import java.io.Reader;
+
+import java.io.BufferedInputStream;
 
 public class AS4 implements AccionSemantica{
     //ASOCIADA AL CONTROL DE DOBLES
 
     @Override
-    public int ejecutar(Reader lector, String lexema) {
+    public int ejecutar(BufferedInputStream lector, String lexema) {
         double valor = Double.parseDouble(lexema);
         if (valor <= AnalizadorLexico.MIN_DOUBLE_VALUE){
             //INFORMAR WARNING, SE TRUNCA AL MENOR VALOR.

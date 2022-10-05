@@ -10,7 +10,7 @@ public class TablaPalabrasReservadas {
     private static final String ARCHIVO_PALABRAS_RESERVADAS = "PalabrasReservadas.txt";
     private static Map<String, Integer> palabras_reservadas;
 
-    public void TablaPalabrasReservadas(){
+    public TablaPalabrasReservadas(){
         Map<String, Integer> map = new HashMap<>();
 
         try {

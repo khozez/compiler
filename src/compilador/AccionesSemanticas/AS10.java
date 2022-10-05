@@ -2,14 +2,14 @@ package compilador.AccionesSemanticas;
 
 import compilador.TablaSimbolos;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.Reader;
 
 public class AS10 implements AccionSemantica{
     //AGREGA LA CADENA DE UNA LINEA A LA TABLA DE SIMBOLOS
 
     @Override
-    public int ejecutar(Reader lector, String lexema) {
+    public int ejecutar(BufferedInputStream lector, String lexema) {
         try {
             lexema += (char) lector.read();
         } catch (IOException e) {

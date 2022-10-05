@@ -1,11 +1,7 @@
 package compilador;
 import compilador.AccionesSemanticas.AccionSemantica;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 
 public class AnalizadorLexico {
@@ -20,23 +16,22 @@ public class AnalizadorLexico {
 		public static final long MAX_LONG = (long) Math.pow(2, 32) - 1;
 		public static final double MIN_DOUBLE_VALUE = 2.2250738585072014D-308;
 		public static final double MAX_DOUBLE_VALUE = 1.7976931348623157D+308;
-		public static Reader lector;
+		public static BufferedInputStream lector;
+		private static TablaPalabrasReservadas PR;
+		private static TablaSimbolos TS;
 
-
-		private File code;
-		private String nextLine;
 		private static int cant_lineas = 1;
-		private int state = 0;
 		private char entry;
-		private MTE matriz_estados;
-		private MAS mas;
-		private String lexema = "";
+		private static MTE matriz_estados;
+		private static MAS mas;
+		public static String lexema = "";
 		private int estado = 0;
 
-		public void AnalizadorLexico(File code_file) {
+		public AnalizadorLexico() {
 			matriz_estados = new MTE();
 			mas = new MAS();
-			code = code_file;
+			PR = new TablaPalabrasReservadas();
+			TS = new TablaSimbolos();
 		}
 
 		public static void newLine(){
@@ -50,18 +45,20 @@ public class AnalizadorLexico {
 			if (caracter >= 48 && caracter <= 57){
 				return DIGITO;
 			}
-			if (caracter >= 65 && caracter <= 90){
+			if (caracter >= 65 && caracter <= 90) {
 				return MAYUSCULA;
 			}
-			if (caracter >= 97 && caracter <= 122){
+			if (caracter >= 97 && caracter <=122){
 				return MINUSCULA;
 			}
 			if (caracter == 39)
 				return COMILLA;
+			if (caracter == 13)
+				return NUEVA_LINEA;
 			return c;
 		}
 
-		public int getToken(Reader lector, char c){
+		public int getToken(BufferedInputStream lector, char c){
 			int id_columna;
 			switch (getTipo(c)){
 				case DIGITO:
@@ -144,9 +141,16 @@ public class AnalizadorLexico {
 					break;
 			}
 
+			//System.out.println("Par: ["+estado+", "+id_columna+"]");
 			AccionSemantica as = mas.action_matrix[estado][id_columna];
 			int id_token = as.ejecutar(lector, lexema);
-			estado = matriz_estados.proxEstado(estado, id_columna);
+			if (id_token != -1){
+				lexema = "";
+			}
+			estado = matriz_estados.states_matrix[estado][id_columna];
+			if (estado == MTE.ESTADO_FINAL){
+				estado = 0;
+			}
 			return id_token;
 		}
 }
