@@ -42,7 +42,7 @@ public class AnalizadorLexico {
 						entry = nextLine.charAt(i);
 						System.out.println("Caracter: "+entry +" -- Codigo: "+(int)entry);
 						if(state!=-1) {
-							state = matriz_estados.transition(state,(int)entry);
+							state = matriz_estados.proxEstado(state, (int)entry);
 							System.out.println("Estado"+state);
 						}
 					}
@@ -50,5 +50,9 @@ public class AnalizadorLexico {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
+		}
+
+		private static char getTipo(char caracter){
+			return 'a';
 		}
 }
