@@ -14,6 +14,6 @@ public class AS6 implements AccionSemantica{
             e.printStackTrace();
         }
 
-        return 0;
+        return -1;
     }
 }

@@ -13,6 +13,7 @@ public class AS1 implements AccionSemantica{
 
     @Override
     public int ejecutar(Reader lector, String lexema) {
+        int id_token;
         if (lexema.length() > AnalizadorLexico.MAXIMA_LONGITUD_IDENTIFICADORES){
             lexema = lexema.substring(0, AnalizadorLexico.MAXIMA_LONGITUD_IDENTIFICADORES);
         }
@@ -20,13 +21,13 @@ public class AS1 implements AccionSemantica{
             //NO ES PALABRA RESERVADA
 
 
-
+            id_token = 156;
         }else{
             //ES PALABRA RESERVADA
 
 
-
+            id_token = TablaPalabrasReservadas.obtenerIdentificador(lexema);
         }
-        return 0;
+        return id_token;
     }
 }

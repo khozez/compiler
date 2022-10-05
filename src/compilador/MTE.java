@@ -3,9 +3,9 @@ package compilador;
 import compilador.AccionesSemanticas.AccionSemantica;
 
 public class MTE {
-	private int[][] states_matrix = new int[12][26];
-	private static final int ERROR = -3;
-	private static final int ESTADO_FINAL = -5;
+	public int[][] states_matrix = new int[12][26];
+	public static final int ERROR = -3;
+	public static final int ESTADO_FINAL = -5;
 
 	public MTE() {
 		states_matrix[0][0] = 0;

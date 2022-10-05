@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class AS9 implements AccionSemantica{
-    //LEE EL CARACTER Y LO DESCARTA (COMENTARIOS) SE IDENTIFICA CON -2
+    //LEE EL CARACTER Y LO DESCARTA (COMENTARIOS) SE IDENTIFICA CON -3
 
     @Override
     public int ejecutar(Reader lector, String lexema) {
@@ -13,6 +13,6 @@ public class AS9 implements AccionSemantica{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -2;
+        return -3;
     }
 }

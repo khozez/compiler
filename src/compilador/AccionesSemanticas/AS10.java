@@ -18,8 +18,6 @@ public class AS10 implements AccionSemantica{
         if (TablaSimbolos.obtenerSimbolo(lexema) != TablaSimbolos.NO_ENCONTRADO) {
             TablaSimbolos.agregarSimbolo(lexema);
         }
-
-        //DEBEMOS RETORNAR EL ID DEL TOKEN DE UNA CADENA
-        return 0;
+        return 157;
     }
 }

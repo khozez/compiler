@@ -26,7 +26,7 @@ public class AS4 implements AccionSemantica{
             TablaSimbolos.agregarAtributo(id, "tipo", "doble");
         }
 
-        //DEBEMOS RETORNAR EL ID DEL TOKEN DE UN DOBLE
-        return 0;
+        //RETORNAMOS EL ID DEL TOKEN DE UNA CONSTANTE
+        return 158;
     }
 }

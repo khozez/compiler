@@ -20,8 +20,6 @@ public class AS5 implements AccionSemantica{
             int id = TablaSimbolos.obtenerSimbolo(lexema);
             TablaSimbolos.agregarAtributo(id, "tipo", "long");
         }
-
-        //DEBEMOS RETORNAR EL ID DEL TOKEN DE UN ENTERO LARGO SIN SIGNO
-        return 0;
+        return 158;
     }
 }

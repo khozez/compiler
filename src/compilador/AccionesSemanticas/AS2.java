@@ -17,6 +17,6 @@ public class AS2 implements AccionSemantica{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return 0;
+        return -1;
     }
 }

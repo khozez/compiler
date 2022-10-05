@@ -16,6 +16,8 @@ public class AS7 implements AccionSemantica{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -1;
+
+        //ERROR
+        return -2;
     }
 }
