@@ -1,5 +1,5 @@
 package compilador.AccionesSemanticas;
-
+import java.io.Reader;
 import compilador.AnalizadorLexico;
 import compilador.TablaPalabrasReservadas;
 
@@ -12,7 +12,7 @@ public class AS1 implements AccionSemantica{
      */
 
     @Override
-    public int ejecutar(String lexema, char caracter) {
+    public int ejecutar(Reader lector, String lexema) {
         if (lexema.length() > AnalizadorLexico.MAXIMA_LONGITUD_IDENTIFICADORES){
             lexema = lexema.substring(0, AnalizadorLexico.MAXIMA_LONGITUD_IDENTIFICADORES);
         }

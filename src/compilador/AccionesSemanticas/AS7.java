@@ -1,24 +1,21 @@
 package compilador.AccionesSemanticas;
 
-import compilador.AnalizadorLexico;
-import compilador.TablaSimbolos;
+import compilador.TablaPalabrasReservadas;
+
+import java.io.IOException;
+import java.io.Reader;
 
 public class AS7 implements AccionSemantica{
-    //ASOCIADA AL CONTROL DE LOS ENTEROS LARGOS SIN SIGNO
+    //LEE EL ULTIMO CARACTER, CONCATENA Y DEVUELVE EL TOKEN ASOCIADO (PALABRAS RESERVADAS)
 
     @Override
-    public int ejecutar(String lexema, char caracter) {
-        long num = Long.parseLong(lexema);
-        if (num > AnalizadorLexico.MAX_LONG){
-            num = AnalizadorLexico.MAX_LONG;
-            //INFORMAR WARNING, SE TRUNCA A MAXIMO LONG
+    public int ejecutar(Reader lector, String lexema) {
+        try {
+            lexema += (char) lector.read();
+            return TablaPalabrasReservadas.obtenerIdentificador(lexema);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        lexema = Long.toString(num);
-        if (TablaSimbolos.agregarSimbolo(lexema)){
-            int id = TablaSimbolos.obtenerSimbolo(lexema);
-            TablaSimbolos.agregarAtributo(id, "tipo", "long");
-        }
-        return 0;
+        return -1;
     }
 }

@@ -1,6 +1,7 @@
 package compilador.AccionesSemanticas;
+import java.io.Reader;
 
 public interface AccionSemantica {
 
-    int ejecutar(String lexema, char caracter);
+    int ejecutar(Reader lector, String lexema);
 }

@@ -3,17 +3,16 @@ package compilador.AccionesSemanticas;
 import java.io.IOException;
 import java.io.Reader;
 
-public class AS6 implements AccionSemantica{
-    //LEE UN CARACTER Y LO CONCATENA AL LEXEMA
+public class AS9 implements AccionSemantica{
+    //LEE EL CARACTER Y LO DESCARTA (COMENTARIOS) SE IDENTIFICA CON -2
 
     @Override
     public int ejecutar(Reader lector, String lexema) {
         try {
-            lexema += (char) lector.read();
+            lector.read();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return 0;
+        return -2;
     }
 }

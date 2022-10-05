@@ -2,12 +2,11 @@ package compilador.AccionesSemanticas;
 
 import java.io.Reader;
 
-public class AS3 implements AccionSemantica{
-    //REINICIA EL LEXEMA, UTILIZADA EN COMENTARIOS
+public class AS8 implements AccionSemantica{
+    //RETORNA EL TOKEN
 
     @Override
     public int ejecutar(Reader lector, String lexema) {
-        lexema =  "";
-        return 0;
+        return lexema.charAt(0);
     }
 }
