@@ -65,9 +65,18 @@ public class MAS {
         for (int i=7; i<=25; i++){
             action_matrix[4][i]= new AS4();
         }
-        for (int i=0; i<=25; i++){
-            action_matrix[5][i]= new ASe();
+        for (int i=0; i<=5; i++){
+            action_matrix[5][i]= new ASd();
         }
+        for (int i=7; i<=12; i++){
+            action_matrix[5][i]= new ASd();
+        }
+        for (int i=15; i<=25; i++){
+            action_matrix[5][i]= new ASd();
+        }
+        action_matrix[5][6]= new AS6();
+        action_matrix[5][13]= new AS6();
+        action_matrix[5][14]= new AS6();
         for (int i=0; i<=5; i++){
             action_matrix[6][i]= new AS4();
         }
@@ -97,7 +106,7 @@ public class MAS {
         action_matrix[9][25]= new AS9();
         action_matrix[10][0]= new AS6();
         action_matrix[10][1]= new AS6();
-        action_matrix[10][2]= new ASe();
+        action_matrix[10][2]= new ASn();
         for (int i=3; i<=23; i++){
             action_matrix[10][i]= new AS6();
         }

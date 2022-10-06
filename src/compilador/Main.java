@@ -15,7 +15,6 @@ public class Main {
                 int value = lector.read();
                 lector.reset();
                 if (value < 0) {
-                    System.out.println("FUERA");
                     break;
                 }
 
@@ -25,9 +24,10 @@ public class Main {
                 lector.reset();
                 id_token = Alexico.getToken(lector, c);
 
+                /*
                 if (id_token != -1) {
                     System.out.println("Token: " + id_token);
-                }
+                }*/
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -21,6 +21,7 @@ public class AS5 implements AccionSemantica{
             int id = TablaSimbolos.obtenerSimbolo(lexema);
             TablaSimbolos.agregarAtributo(id, "tipo", "long");
         }
+        System.out.println("Constante entera: "+lexema);
         return 158;
     }
 }

@@ -22,10 +22,12 @@ public class AS1 implements AccionSemantica{
         if (TablaPalabrasReservadas.obtenerIdentificador(lexema) == -1){
             //NO ES PALABRA RESERVADA
             TablaSimbolos.agregarSimbolo(lexema);
+            System.out.println("Identificador: "+lexema);
             id_token = 156;
         }else{
             //ES PALABRA RESERVADA
             id_token = TablaPalabrasReservadas.obtenerIdentificador(lexema);
+            System.out.println("Palabra reservada: "+lexema);
         }
         return id_token;
     }

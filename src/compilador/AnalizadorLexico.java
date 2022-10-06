@@ -46,7 +46,8 @@ public class AnalizadorLexico {
 				return DIGITO;
 			}
 			if (caracter >= 65 && caracter <= 90) {
-				return MAYUSCULA;
+				if (c != 'D')
+					return MAYUSCULA;
 			}
 			if (caracter >= 97 && caracter <=122){
 				return MINUSCULA;
@@ -141,7 +142,6 @@ public class AnalizadorLexico {
 					break;
 			}
 
-			//System.out.println("Par: ["+estado+", "+id_columna+"]");
 			AccionSemantica as = mas.action_matrix[estado][id_columna];
 			int id_token = as.ejecutar(lector, lexema);
 			if (id_token != -1){

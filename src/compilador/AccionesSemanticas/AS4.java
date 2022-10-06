@@ -28,6 +28,7 @@ public class AS4 implements AccionSemantica{
         }
 
         //RETORNAMOS EL ID DEL TOKEN DE UNA CONSTANTE
+        System.out.println("Constante doble: "+lexema);
         return 158;
     }
 }

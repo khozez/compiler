@@ -1,19 +1,21 @@
 package compilador.AccionesSemanticas;
 
+import compilador.AnalizadorLexico;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
 public class AS9 implements AccionSemantica{
-    //LEE EL CARACTER Y LO DESCARTA (COMENTARIOS) SE IDENTIFICA CON -3
+    //LEE EL CARACTER Y LO DESCARTA (COMENTARIOS)
 
     @Override
     public int ejecutar(BufferedInputStream lector, String lexema) {
         try {
             lector.read();
-            lexema = "";
+            AnalizadorLexico.lexema = "";
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -2;
+        return -1;
     }
 }

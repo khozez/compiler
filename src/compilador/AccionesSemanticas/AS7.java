@@ -1,5 +1,6 @@
 package compilador.AccionesSemanticas;
 
+import compilador.AnalizadorLexico;
 import compilador.TablaPalabrasReservadas;
 
 import java.io.BufferedInputStream;
@@ -11,7 +12,8 @@ public class AS7 implements AccionSemantica{
     @Override
     public int ejecutar(BufferedInputStream lector, String lexema) {
         try {
-            lexema += (char) lector.read();
+            AnalizadorLexico.lexema += (char) lector.read();
+            System.out.println("Palabra reservada: "+lexema);
             return TablaPalabrasReservadas.obtenerIdentificador(lexema);
         } catch (IOException e) {
             e.printStackTrace();

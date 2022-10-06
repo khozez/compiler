@@ -113,7 +113,12 @@ public class MTE {
 	}
 
 	public void show(){
-
+		System.out.println("	MATRIZ DE TRANSICION DE ESTADOS");
+		for (int i = 0; i < states_matrix.length; i++) {
+			for (int j = 0; j < states_matrix[i].length; j++) {
+				System.out.print(states_matrix[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
-
 }

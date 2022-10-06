@@ -13,6 +13,7 @@ public class AS8 implements AccionSemantica{
         try {
             char c = (char) lector.read();
             AnalizadorLexico.lexema += c;
+            System.out.println(AnalizadorLexico.lexema);
             return c;
         } catch (IOException e) {
             throw new RuntimeException(e);

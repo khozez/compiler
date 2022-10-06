@@ -10,6 +10,6 @@ public class AS3 implements AccionSemantica{
     @Override
     public int ejecutar(BufferedInputStream lector, String lexema) {
         AnalizadorLexico.lexema =  "";
-        return 0;
+        return -1;
     }
 }
