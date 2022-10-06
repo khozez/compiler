@@ -144,9 +144,9 @@ public class AnalizadorLexico {
 
 			AccionSemantica as = mas.action_matrix[estado][id_columna];
 			int id_token = as.ejecutar(lector, lexema);
-			if (id_token != -1){
+			/*if (id_token != -1){
 				lexema = "";
-			}
+			}    necesito el lexema despues entonces lo tengo que tener guardado, en yylex lo reseteo*/
 			estado = matriz_estados.states_matrix[estado][id_columna];
 			if (estado == MTE.ESTADO_FINAL){
 				estado = 0;

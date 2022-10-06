@@ -121,3 +121,42 @@ salida: OUT '(' CADENA ')'
 ;
 
 
+%%
+
+public static List<String> errorLexico = new ArrayList<>();
+public static List<String> errorSintactico = new ArrayList<>();
+
+
+void yyerror(String mensaje) {
+        // funcion utilizada para imprimir errores que produce yacc
+        System.out.println("Error yacc: " + mensaje);
+}
+
+int yylex(){
+    int IDtoken = 0; // IDtoken va a guardar el ID del token que genere el AL
+    BufferedInputStream lector = AnalizadorLexico.lector; // agarro el lector
+    while (true) {
+        try {
+            if (lector.available() <= 0) { // me aseguro que no este vacio el buffer
+                break; // si esta vacio se detiene el while
+            }
+
+            lector.mark(1);
+            char c = (char) lector.read(); // consigo el siguiente caracter
+            lector.reset();
+            IDtoken = AnalizadorLexico.getToken(lector, c); // pido el token
+            if (IDtoken != -1){ // si AL no define un token entonces sigue probando con los proximos caracteres
+                yylval = new ParserVal(AnalizadorLexico.lexema.toString());
+                AnalizadorLexico.lexema= ""; // borro lexema porque no lo necesito mas
+                return IDtoken; // devuelvo el ID del token
+            }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    return 0; // 0 indica que se llego al EOF
+
+void anotarError (ArrayList<String> listaError, String error){ // Agrega un error encontrado, "error" es la descripcion
+    listaError.add(Error + " Linea:" + AnalizadorLexico.getCantLineas());
+}
