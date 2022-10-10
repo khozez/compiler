@@ -21,6 +21,7 @@ public class AnalizadorLexico {
 		private static TablaSimbolos TS;
 
 		private static int cant_lineas = 1;
+		private static int posicion = 0;
 		private char entry;
 		private static MTE matriz_estados;
 		private static MAS mas;
@@ -35,10 +36,13 @@ public class AnalizadorLexico {
 		}
 
 		public static void newLine(){
+			posicion = 0;
 			cant_lineas += 1;
 		}
 
 		public static int getCantLineas(){ return cant_lineas;}
+		
+		public static int getPosicon() { return posicion;}
 
 		private static char getTipo(char c){
 			int caracter = (int) c;
@@ -60,6 +64,7 @@ public class AnalizadorLexico {
 		}
 
 		public int getToken(BufferedInputStream lector, char c){
+			posicion+=1;
 			int id_columna;
 			switch (getTipo(c)){
 				case DIGITO:

@@ -18,6 +18,10 @@ import java.util.Stack;
 
 %%
 programa: nombrep '{' sentencias '}' ;
+		| '{' sentencias '}' ; {anotarError(errorSintactico, "Falta el nombre del programa")}
+		| nombrep  sentencias '}' ; {anotarError(errorSintactico, "Falta el simbolo '{'")}
+		| nombrep '{' sentencias ; {anotarError(errorSintactico, "Falta el simbolo '}'")
+		| nombrep '{' '}' ; {anotarError(errorSintactico, "Falta el conjunto de sentencias")
     | nombrep '{' sentencias '}' {anotarError(errorSintactico, "Se espera ; al final")}
 ;
 
@@ -29,9 +33,11 @@ sentencias: bloqueDeclarativa sentencias
         | control
         | ETIQUETA':'control 
         | ETIQUETA control {anotarError(errorSintactico, "Se espera : luego de la ETIQUETA")}
-        | control ELSE expresion ';'
-        | control ELSE expresion {anotarError(errorSintactico, "Se espera ; al final")}
-        | control expresion {anotarError(errorSintactico, "Se espera ELSE luego del bloque de control")}
+        | seleccion ELSE expresion ';'
+        | seleccion ELSE ';'
+        | seleccion ELSE {anotarError(errorSintactico, "Se espera ; al final")}
+        | seleccion ELSE expresion {anotarError(errorSintactico, "Se espera ; al final")}
+        | seleccion expresion {anotarError(errorSintactico, "Se espera ELSE luego del bloque de control")}
 
 ;
 
@@ -64,6 +70,9 @@ bloqueEjecutableFOR: bloqueEjecutableFOR  ejecutables ';'
     | BREAK ETIQUETA {anotarError(errorSintactico, "Se espera ; al final")}
     | BREAK {anotarError(errorSintactico, "Se espera ; al final")}
     | BREAK expresion {anotarError(errorSintactico, "Se espera ; al final")}
+    | bloqueEjecutableFOR bloqueDeclarativa {anotarError(errorSintactico, "No es posible realizar declaraciones dentro de un FOR")}
+    | bloqueDeclarativa bloqueEjecutableFOR {anotarError(errorSintactico, "No es posible realizar declaraciones dentro de un FOR")}
+;
 ;
 
 condicion_for: ID MAYORIGUAL expresion
@@ -202,5 +211,5 @@ int yylex(){
     return 0; // 0 indica que se llego al EOF
 
 void anotarError (ArrayList<String> listaError, String error){ // Agrega un error encontrado, "error" es la descripcion
-    listaError.add(Error + " Linea:" + AnalizadorLexico.getCantLineas());
+    listaError.add(Error + " Linea: " + AnalizadorLexico.getCantLineas() + " Posicion: " + AnalizadorLexico.getPosicion());
 }
