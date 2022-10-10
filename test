@@ -1,0 +1,14 @@
+Programa{
+ui32 entero1 =: 32;
+f64 float1 =: .4;
+f64 float2 =: .6;
+ui32 entero2;
+if (float1 <= float2) then {
+	entero2 =: entero1;
+	out ("Se cambio el valor de entero2");
+} else
+for(entero1 =: 0; entero1 <= 5; +1){
+	out("Hola mundo");
+};
+
+};
