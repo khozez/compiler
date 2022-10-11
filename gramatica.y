@@ -19,10 +19,13 @@ import java.util.Stack;
 %%
 programa: nombrep '{' sentencias '}' ;
 		| '{' sentencias '}' ; {anotarError(errorSintactico, "Falta el nombre del programa")}
-		| nombrep  sentencias '}' ; {anotarError(errorSintactico, "Falta el simbolo '{'")}
-		| nombrep '{' sentencias ; {anotarError(errorSintactico, "Falta el simbolo '}'")
-		| nombrep '{' '}' ; {anotarError(errorSintactico, "Falta el conjunto de sentencias")
-    | nombrep '{' sentencias '}' {anotarError(errorSintactico, "Se espera ; al final")}
+		| nombrep sentencias '}' ; {anotarError(errorSintactico, "Falta el simbolo '{'")}
+		| nombrep '{' sentencias ; {anotarError(errorSintactico, "Falta el simbolo '}'")}
+		| nombrep '{' '}' ; {anotarError(errorSintactico, "Falta el conjunto de sentencias")}
+    		| nombrep '{' sentencias '}' {anotarError(errorSintactico, "Se espera ; al final")}
+;
+
+nombrep: ID
 ;
 
 sentencias: bloqueDeclarativa sentencias
@@ -55,9 +58,9 @@ control:FOR '('ID ASIGN VALOR ';' condicion_for ';' '+' VALOR ')' '{'bloqueEjecu
     |FOR '('ID ASIGN VALOR ';' condicion_for ';' VALOR ')' declarativa {anotarError(errorSintactico, "Se espera ; al final")}
 ;
 
-bloqueEjecutableFOR: bloqueEjecutableFOR  ejecutables ';'
-    | bloqueEjecutableFOR  BREAK ';'
-    | bloqueEjecutableFOR  ':' BREAK ETIQUETA ';'
+bloqueEjecutableFOR: bloqueEjecutableFOR ejecutables ';'
+    | bloqueEjecutableFOR BREAK ';'
+    | bloqueEjecutableFOR ':' BREAK ETIQUETA ';'
     | ejecutables ';'
     | BREAK ETIQUETA ';'
     | BREAK ';'
@@ -161,11 +164,11 @@ condicion: expresion MENORIGUAL expresion
     | expresion expresion {anotarError(errorSintactico, "Se espera una comparacion")}
 ;
 
-seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' ENDIF ';'
+seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF ';'
     | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' END_IF ';'
     | IF '(' condicion ')' THEN declarativa ELSE declarativa END_IF ';'
     | IF '(' condicion ')' THEN declarativa END_IF ';'
-    | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' ENDIF {anotarError(errorSintactico, "Se espera ;")}
+    | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF {anotarError(errorSintactico, "Se espera ;")}
     | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' END_IF {anotarError(errorSintactico, "Se espera ;")}
     | IF '(' condicion ')' THEN declarativa ELSE declarativa END_IF  {anotarError(errorSintactico, "Se espera ;")}
     | IF '(' condicion ')' THEN declarativa END_IF {anotarError(errorSintactico, "Se espera ;")}
@@ -173,7 +176,12 @@ seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecut
 salida: OUT '(' CADENA ')'
 ;
 
+tipo: F
+	| UI
+;
 
+const: VALOR
+;
 %%
 
 public static List<String> errorLexico = new ArrayList<>();
