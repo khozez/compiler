@@ -220,3 +220,20 @@ int yylex(){
 void anotarError (ArrayList<String> listaError, String error){ // Agrega un error encontrado, "error" es la descripcion
     listaError.add(Error + " Linea: " + AnalizadorLexico.getCantLineas() + " Posicion: " + AnalizadorLexico.getPosicion());
 }
+
+public static void main(String[] args) {
+        if (args.length > 1) {
+                String archivo_a_leer = args[0];
+
+                try {
+                        AnalizadorLexico.lector = new BufferedReader(new FileReader(archivo_a_leer));
+                        Parser parser = new Parser();
+                        parser.run();
+                } catch (IOException excepcion) {
+                        excepcion.printStackTrace();
+                }
+                TablaSimbolos.imprimirTabla();
+        } else {
+                System.out.println("No se especifico el archivo a compilar");
+        }
+}
