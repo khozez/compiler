@@ -160,7 +160,7 @@ condicion: expresion MENORIGUAL expresion
 	| expresion MAYORIGUAL expresion
 	| expresion DISTINTO expresion
 	| expresion IGUAL expresion
-    | expresion expresion {anotarError(errorSintactico, "Se espera una comparacion")}
+    | expresion expresion {anotarError(errorSintactico, "Se espera un operador de comparacion")}
 ;
 
 seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF ';'
