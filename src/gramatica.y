@@ -17,11 +17,11 @@ import java.util.Stack;
 %start programa
 
 %%
-programa: nombrep '{' sentencias '}' ;
-		| '{' sentencias '}' ; {anotarError(errorSintactico, "Falta el nombre del programa")}
-		| nombrep sentencias '}' ; {anotarError(errorSintactico, "Falta el simbolo '{'")}
-		| nombrep '{' sentencias ; {anotarError(errorSintactico, "Falta el simbolo '}'")}
-		| nombrep '{' '}' ; {anotarError(errorSintactico, "Falta el conjunto de sentencias")}
+programa: nombrep '{' sentencias '}' ';'
+		| '{' sentencias '}' ';' {anotarError(errorSintactico, "Falta el nombre del programa")}
+		| nombrep sentencias '}' ';' {anotarError(errorSintactico, "Falta el simbolo '{'")}
+		| nombrep '{' sentencias ';' {anotarError(errorSintactico, "Falta el simbolo '}'")}
+		| nombrep '{' '}' ';' {anotarError(errorSintactico, "Falta el conjunto de sentencias")}
     		| nombrep '{' sentencias '}' {anotarError(errorSintactico, "Se espera ; al final")}
 ;
 
@@ -75,7 +75,6 @@ bloqueEjecutableFOR: bloqueEjecutableFOR ejecutables ';'
     | BREAK expresion {anotarError(errorSintactico, "Se espera ; al final")}
     | bloqueEjecutableFOR bloqueDeclarativa {anotarError(errorSintactico, "No es posible realizar declaraciones dentro de un FOR")}
     | bloqueDeclarativa bloqueEjecutableFOR {anotarError(errorSintactico, "No es posible realizar declaraciones dentro de un FOR")}
-;
 ;
 
 condicion_for: ID MAYORIGUAL expresion
