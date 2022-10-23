@@ -66,4 +66,19 @@ public class TablaSimbolos {
         }
         return null;
     }
+
+    public static void imprimirTabla() {
+        System.out.println("\nTablaSimbolos:");
+
+        for (Map.Entry<Integer, Map<String, String>> entrada: simbolos.entrySet()) {
+            Map<String, String> atributos = entrada.getValue();
+            System.out.print(entrada.getKey() + ": ");
+
+            for (Map.Entry<String, String> atributo: atributos.entrySet()) {
+                System.out.print("(" + atributo.getKey() + ": " + atributo.getValue() + ") ");
+            }
+
+            System.out.println();
+        }
+    }
 }
