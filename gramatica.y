@@ -18,7 +18,11 @@ import java.util.Stack;
 
 %%
 programa: nombrep '{' sentencias '}' ';'
-	
+		| '{' sentencias '}' ';' {anotarError(errorSintactico, "Falta el nombre del programa")}
+		| nombrep sentencias '}' ';' {anotarError(errorSintactico, "Falta el simbolo '{'")}
+		| nombrep '{' sentencias ';' {anotarError(errorSintactico, "Falta el simbolo '}'")}
+		| nombrep '{' '}' ';' {anotarError(errorSintactico, "Falta el conjunto de sentencias")}
+    		| nombrep '{' sentencias '}' {anotarError(errorSintactico, "Se espera ; al final")}
    ;
 nombrep: ID
 ;
@@ -42,6 +46,7 @@ bloqueEjecutableFOR: bloqueEjecutableFOR ejecutables ';'
     | BREAK ETIQUETA ';'
     | BREAK ';'
     | BREAK expresion ';'
+    
 
 ;
 
@@ -133,6 +138,7 @@ condicion: expresion MENORIGUAL expresion
 	| expresion MAYORIGUAL expresion
 	| expresion DISTINTO expresion
 	| expresion IGUAL expresion
+	| expresion expresion {anotarError(errorSintactico, "Se espera un operador de comparacion")}
 ;
 
 seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF
@@ -187,3 +193,19 @@ int yylex(){
 void anotarError (ArrayList<String> listaError, String error){ // Agrega un error encontrado, "error" es la descripcion
     listaError.add(Error + " Linea: " + AnalizadorLexico.getCantLineas() + " Posicion: " + AnalizadorLexico.getPosicion());
 }
+
+public static void main(String[] args) {
+        if (args.length > 1) {
+                String archivo_a_leer = args[0];
+
+                try {
+                        AnalizadorLexico.lector = new BufferedReader(new FileReader(archivo_a_leer));
+                        Parser parser = new Parser();
+                        parser.run();
+                } catch (IOException excepcion) {
+                        excepcion.printStackTrace();
+                }
+                TablaSimbolos.imprimirTabla();
+        } else {
+                System.out.println("No se especifico el archivo a compilar");
+        }
