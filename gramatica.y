@@ -36,6 +36,7 @@ sentencias: bloqueDeclarativa bloqueEjecutable
 control: FOR '(' ID ASIGN VALOR ';' condicion_for ';' '+' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
     |FOR '('ID ASIGN VALOR ';' condicion_for ';' '-' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
     |FOR '('ID ASIGN VALOR ';' condicion_for ';' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
+    |error ';' {anotarError(errorSintactico, "Se espera ; al final")}
 
 ;
 
@@ -46,6 +47,7 @@ bloqueEjecutableFOR: bloqueEjecutableFOR ejecutables ';'
     | BREAK ETIQUETA ';'
     | BREAK ';'
     | BREAK expresion ';'
+    | error ';' {anotarError(errorSintactico, "Se espera ; al final")}
     
 
 ;
@@ -103,6 +105,7 @@ cuerpoFUN: bloqueEjecutable
 ;
 
 retorno_funcion: RETURN '(' retorno ')' ';'
+		| error ';' {anotarError(errorSintactico, "Se espera ; al final")}
 ;
 
 retorno: expresion
@@ -141,8 +144,9 @@ condicion: expresion MENORIGUAL expresion
 	| expresion expresion {anotarError(errorSintactico, "Se espera un operador de comparacion")}
 ;
 
-seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF
-    | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' END_IF 
+seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF ';'
+    | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' END_IF ';'
+
 
 
 ;
