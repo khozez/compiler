@@ -18,22 +18,16 @@ import java.util.Stack;
 
 %%
 programa: nombrep '{' sentencias '}' ';'
-
+	
+   ;
 nombrep: ID
 ;
 
-sentencias: sentencias sentencia  
-        | sentencia 
+sentencias: bloqueDeclarativa bloqueEjecutable  
 
 
 ;
 
-sentencia: bloqueDeclarativa
-	| bloqueEjecutable
-	| control
-	| seleccion
-	| ETIQUETA ':' control 
-;
 
 control: FOR '(' ID ASIGN VALOR ';' condicion_for ';' '+' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
     |FOR '('ID ASIGN VALOR ';' condicion_for ';' '-' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
@@ -48,7 +42,7 @@ bloqueEjecutableFOR: bloqueEjecutableFOR ejecutables ';'
     | BREAK ETIQUETA ';'
     | BREAK ';'
     | BREAK expresion ';'
-    
+
 ;
 
 condicion_for: ID MAYORIGUAL expresion
@@ -113,6 +107,8 @@ ejecutables: ID ASIGN expresion
     	| salida
     	| seleccion
     	| WHEN '('condicion')' THEN '{'sentencias'}'
+    	| control
+	| ETIQUETA ':' control 
 ;
 
 expresion: expresion '+' termino  
