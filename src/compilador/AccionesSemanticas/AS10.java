@@ -18,6 +18,6 @@ public class AS10 implements AccionSemantica{
         if (TablaSimbolos.obtenerSimbolo(lexema) != TablaSimbolos.NO_ENCONTRADO) {
             TablaSimbolos.agregarSimbolo(lexema);
         }
-        return 157;
+        return 258;
     }
 }

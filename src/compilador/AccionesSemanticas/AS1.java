@@ -1,9 +1,10 @@
 package compilador.AccionesSemanticas;
-import java.io.BufferedInputStream;
 
 import compilador.AnalizadorLexico;
 import compilador.TablaPalabrasReservadas;
 import compilador.TablaSimbolos;
+
+import java.io.BufferedInputStream;
 
 public class AS1 implements AccionSemantica{
     /*
@@ -23,7 +24,7 @@ public class AS1 implements AccionSemantica{
             //NO ES PALABRA RESERVADA
             TablaSimbolos.agregarSimbolo(lexema);
             System.out.println("Identificador: "+lexema);
-            id_token = 156;
+            id_token = 257;
         }else{
             //ES PALABRA RESERVADA
             id_token = TablaPalabrasReservadas.obtenerIdentificador(lexema);
