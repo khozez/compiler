@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Stack;
 %}
 
-%token ID IF THEN ELSE END_IF OUT FUN RETURN BREAK UI F WHEN FOR MAYORIGUAL MENORIGUAL ASIGN DISTINTO VALOR CADENA IGUAL ETIQUETA
+%token ID CADENA VALOR IF THEN ELSE END_IF OUT FUN RETURN BREAK UI F WHEN FOR MAYORIGUAL MENORIGUAL ASIGN DISTINTO IGUAL ETIQUETA
 %left '+' '-'
 %left '*' '/'
 
@@ -18,35 +18,25 @@ import java.util.Stack;
 
 %%
 programa: nombrep '{' sentencias '}' ';'
-<<<<<<< HEAD:gramatica.y
-=======
 		| '{' sentencias '}' ';' {anotarError(errorSintactico, "Falta el nombre del programa")}
 		| nombrep sentencias '}' ';' {anotarError(errorSintactico, "Falta el simbolo '{'")}
 		| nombrep '{' sentencias ';' {anotarError(errorSintactico, "Falta el simbolo '}'")}
 		| nombrep '{' '}' ';' {anotarError(errorSintactico, "Falta el conjunto de sentencias")}
     		| nombrep '{' sentencias '}' {anotarError(errorSintactico, "Se espera ; al final")}
-;
->>>>>>> c21a9ade2f340940ba4cdcd1e08f0ec13cd8646d:src/gramatica.y
-
+   ;
 nombrep: ID
 ;
 
-sentencias: sentencias sentencia  
-        | sentencia 
+sentencias: bloqueDeclarativa bloqueEjecutable  
 
 
 ;
 
-sentencia: bloqueDeclarativa
-	| bloqueEjecutable
-	| control
-	| seleccion
-	| ETIQUETA ':' control 
-;
 
 control: FOR '(' ID ASIGN VALOR ';' condicion_for ';' '+' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
     |FOR '('ID ASIGN VALOR ';' condicion_for ';' '-' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
     |FOR '('ID ASIGN VALOR ';' condicion_for ';' VALOR ')' '{'bloqueEjecutableFOR'}' ';'
+    |error ';' {anotarError(errorSintactico, "Se espera ; al final")}
 
 ;
 
@@ -57,20 +47,9 @@ bloqueEjecutableFOR: bloqueEjecutableFOR ejecutables ';'
     | BREAK ETIQUETA ';'
     | BREAK ';'
     | BREAK expresion ';'
-<<<<<<< HEAD:gramatica.y
+    | error ';' {anotarError(errorSintactico, "Se espera ; al final")}
     
-=======
-    |bloqueEjecutableFOR  ejecutables {anotarError(errorSintactico, "Se espera ; al final")}
-    | bloqueEjecutableFOR  BREAK {anotarError(errorSintactico, "Se espera ; al final")}
-    | bloqueEjecutableFOR BREAK ETIQUETA ';' {anotarError(errorSintactico, "Se espera : antes de la etiqueta")}
-    | bloqueEjecutableFOR  ':' BREAK ETIQUETA {anotarError(errorSintactico, "Se espera ; al final")}
-    | ejecutables {anotarError(errorSintactico, "Se espera ; al final")}
-    | BREAK ETIQUETA {anotarError(errorSintactico, "Se espera ; al final")}
-    | BREAK {anotarError(errorSintactico, "Se espera ; al final")}
-    | BREAK expresion {anotarError(errorSintactico, "Se espera ; al final")}
-    | bloqueEjecutableFOR bloqueDeclarativa {anotarError(errorSintactico, "No es posible realizar declaraciones dentro de un FOR")}
-    | bloqueDeclarativa bloqueEjecutableFOR {anotarError(errorSintactico, "No es posible realizar declaraciones dentro de un FOR")}
->>>>>>> c21a9ade2f340940ba4cdcd1e08f0ec13cd8646d:src/gramatica.y
+
 ;
 
 condicion_for: ID MAYORIGUAL expresion
@@ -126,6 +105,7 @@ cuerpoFUN: bloqueEjecutable
 ;
 
 retorno_funcion: RETURN '(' retorno ')' ';'
+		| error ';' {anotarError(errorSintactico, "Se espera ; al final")}
 ;
 
 retorno: expresion
@@ -135,6 +115,8 @@ ejecutables: ID ASIGN expresion
     	| salida
     	| seleccion
     	| WHEN '('condicion')' THEN '{'sentencias'}'
+    	| control
+	| ETIQUETA ':' control 
 ;
 
 expresion: expresion '+' termino  
@@ -159,14 +141,12 @@ condicion: expresion MENORIGUAL expresion
 	| expresion MAYORIGUAL expresion
 	| expresion DISTINTO expresion
 	| expresion IGUAL expresion
-<<<<<<< HEAD:gramatica.y
-=======
-    | expresion expresion {anotarError(errorSintactico, "Se espera un operador de comparacion")}
->>>>>>> c21a9ade2f340940ba4cdcd1e08f0ec13cd8646d:src/gramatica.y
+	| expresion expresion {anotarError(errorSintactico, "Se espera un operador de comparacion")}
 ;
 
-seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF
-    | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' END_IF 
+seleccion: IF '(' condicion ')' THEN '{'bloqueEjecutable'}' ELSE '{'bloqueEjecutable'}' END_IF ';'
+    | IF '(' condicion ')' THEN '{'bloqueEjecutable'}' END_IF ';'
+
 
 
 ;
@@ -233,4 +213,3 @@ public static void main(String[] args) {
         } else {
                 System.out.println("No se especifico el archivo a compilar");
         }
-}
